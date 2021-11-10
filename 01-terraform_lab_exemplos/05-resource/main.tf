@@ -73,15 +73,15 @@ provider "aws" {
   region = "sa-east-1"
 }
 resource "aws_instance" "web" {
-  subnet_id     = "subnet-05d2f48a5e97f0b1a"
-  ami= "ami-054a31f1b3bf90920"
+  subnet_id     = "subnet-0af90638faf332140"
+  ami= "ami-0e66f5495b4efdd0f"
   instance_type = "t2.micro"
   root_block_device {
     encrypted = true
     volume_size = 8
   }
   tags = {
-    Name = "ec2-zerati-tf"
+    Name = "Ronaldo_EC2_TF0"
   }
 }
 # /////
