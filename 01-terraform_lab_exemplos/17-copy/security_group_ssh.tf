@@ -4,33 +4,22 @@
 # ingress = [  # inbound
 # egress = [ # outbound
 
-resource "aws_security_group" "allow_ssh" {
-  name        = "Ronaldo_allow_ssh"
+resource "aws_security_group" "allow_ssh_terraform" {
+  name        = "Ronaldo_ssh_VPC"
   description = "Allow SSH inbound traffic"
-  vpc_id = "vpc-043db12776dca20bf"
+  vpc_id      = aws_vpc.my_vpc.id
 
   ingress = [
     {
-      description      = "SSH from ALL"
+      description      = "SSH from VPC"
       from_port        = 22
       to_port          = 22
       protocol         = "tcp"
       cidr_blocks      = ["0.0.0.0/0"]
       ipv6_cidr_blocks = ["::/0"]
-      prefix_list_ids = null,
-      security_groups = null,
-      self            = null
-    },
-    {
-      description      = "HTTP from ALL"
-      from_port        = 80
-      to_port          = 80
-      protocol         = "tcp"
-      cidr_blocks      = ["0.0.0.0/0"]
-      ipv6_cidr_blocks = ["::/0"]
-      prefix_list_ids = null,
-      security_groups = null,
-      self            = null
+      prefix_list_ids  = []
+      security_groups  = []
+      self             = false
     }
   ]
 
@@ -41,14 +30,18 @@ resource "aws_security_group" "allow_ssh" {
       protocol         = "-1"
       cidr_blocks      = ["0.0.0.0/0"]
       ipv6_cidr_blocks = ["::/0"],
-      prefix_list_ids  = null,
-      security_groups  = null,
-      self             = null,
-      description      = "Libera dados da rede interna"
+      description: "Libera dados da rede interna"
+      prefix_list_ids  = []
+      security_groups  = []
+      self             = false
     }
   ]
 
   tags = {
-    Name = "allow_ssh"
+    Name = "Ronaldo_ssh_VPC"
   }
+}
+
+output "allow_ssh_terraform" {
+  value = aws_security_group.allow_ssh_terraform.id
 }

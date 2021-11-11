@@ -6,6 +6,7 @@ resource "aws_instance" "web" {
   ami           = "ami-0e66f5495b4efdd0f"
   instance_type = "t2.micro"
   subnet_id     = "subnet-0af90638faf332140"
+  associate_public_ip_address = true
   root_block_device {
     encrypted = true
     volume_size = 8
@@ -14,5 +15,5 @@ resource "aws_instance" "web" {
   tags = {
     Name = "Ronaldo_EC2_TFSG"
   }
-  vpc_security_group_ids = ["sg-08cb1085001b0aa51"]
+  vpc_security_group_ids = ["${aws_security_group.allow_ssh.id}"]
 }

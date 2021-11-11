@@ -3,6 +3,6 @@ provider "aws" {
 }
 
 module "criar_instancia" {
-  source = "./instancia"
+  source = "git@github.com:ryudik/module.git"
   nome = "Ronaldo_EC2_Module"
 }

@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 resource "aws_instance" "web" {
-  count = 1
+  count = 3
   ami           = "ami-0e66f5495b4efdd0f"
   instance_type = "t2.micro"
   subnet_id     = "subnet-0af90638faf332140"
@@ -20,8 +20,11 @@ resource "aws_instance" "web" {
  
 }
 output "instance_ip_addr" {
-  value = [aws_instance.web[0].public_dns, aws_instance.web[0].public_ip, aws_instance.web[0].private_ip, 
-  "ssh -i /Users/ronal/.ssh/acesso.pv ubuntu@${aws_instance.web[0].public_ip}"
+  value = [
+  for item in aws_instance.web :  
+   "${item.public_dns} - ${item.public_ip} - ${item.private_ip}"  
+  #"ssh -i /Users/ronal/.ssh/acesso.pv ubuntu@${aws_instance.web[0].public_ip}"
   ]
   description = "Mostra os IPs publicos e privados da maquina criada."
+  
 }
