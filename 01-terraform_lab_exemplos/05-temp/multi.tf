@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 resource "aws_instance" "web" {
-  count = 3
+  count = 1
   ami           = "ami-0e66f5495b4efdd0f"
   instance_type = "t2.micro"
   subnet_id     = "subnet-0af90638faf332140"
@@ -12,9 +12,9 @@ resource "aws_instance" "web" {
     encrypted = true
     volume_size = 8
   }
-  key_name = "Ronaldo_Keypair" # Nome da Key gerada pelo ssk-keygem e upada na AWS
+  key_name = "Ronaldo_Key_novo" # Nome da Key gerada pelo ssk-keygem e upada na AWS
   tags = {
-    Name = "Ronaldo_EC2_multi${count.index}_0"
+    Name = "Ronaldo_EC2_Ansible${count.index}_0"
   }
   vpc_security_group_ids = ["sg-08cb1085001b0aa51"]
  

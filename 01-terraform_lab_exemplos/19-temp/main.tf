@@ -6,3 +6,6 @@ module "criar_instancia" {
   source = "git@github.com:ryudik/module.git"
   nome = "Ronaldo_EC2_Module"
 }
+output "output" {
+  value = [module.criar_instancia.name]
+}

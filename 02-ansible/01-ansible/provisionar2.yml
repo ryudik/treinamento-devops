@@ -42,12 +42,11 @@
         - python3-pycurl
         - python3-mysqldb
         - unzip
-
+        
     - name: "Fazendo downlaod do wordpress"
       get_url:
         url: "https://br.wordpress.org/latest-pt_BR.tar.gz"
         dest: "/tmp/wordpress.tar.gz"
-      become: yes
     
     - name: "Fazendo descompactação dos arquivos do WP"
       unarchive:
