@@ -1,0 +1,111 @@
+- hosts: all
+  environment:
+    DATABASE_URL: "mysql://127.0.0.1:3306/treinamento_database"
+    USER: "root"
+    PASSWORD: "Senha&12_torne00"
+  handlers:
+    - name: "restart nginx"
+      service:
+        name: nginx
+        state: restarted
+      become: yes
+  tasks:
+  
+    - name: "Roda: sudo apt update"
+      become: yes
+      apt:
+        upgrade: yes
+        update_cache: yes
+        cache_valid_time: 86400 #Um dia
+    
+    - name: "Instala pacotes em lote"
+      apt:
+        name: "{{ item }}"
+        state: latest
+      become: yes # roda com sudo
+      with_items:
+        - nginx
+        - php-curl
+        - unzip
+        - default-jre
+        - maven
+        - mysql-server
+        - python3-mysqldb
+      
+    - name: "clone projeto"
+      ansible.builtin.git:
+        repo: 'https://github.com/torneseumprogramador/spring-web-youtube.git'
+        dest: /home/ubuntu/spring-web-youtube
+        clone: yes
+        update: yes  
+    
+    - name: "Lavanta serviço do mysql"
+      become: yes
+      service:
+        name: mysql
+        state: started
+
+    - name: "Criando senha root mysql"
+      become: yes
+      mysql_user:
+        name: root
+        host: localhost
+        password: Senha&12_torne00
+        priv: "*.*:ALL,GRANT"
+  
+    - name: "Cria o banco de dados MySQL"
+      mysql_db:
+        name: treinamento_database
+        login_user: root
+        login_password: Senha&12_torne00
+        state: present
+
+    - name: "Adicionar no bashrc"
+      lineinfile: dest=~/.bashrc line="export USER='root'" state=present
+     
+    - name: "Adicionar no bashrc 2"
+      lineinfile: dest=~/.bashrc line="export PASSWORD='Senha&12_torne00'" state=present
+
+    - name: "Adicionar no bashrc 3"
+      lineinfile: dest=~/.bashrc line="export DATABASE_URL='mysql://127.0.0.1:3306/treinamento_database'" state=present
+
+    - name: "Adicionar no bashrc 4"
+      lineinfile: dest=~/.bashrc line="export JAVA_HOME='/usr/lib/jvm/java-11-openjdk-amd64'" state=present
+      
+    - name: "Aplicar o bashrc"
+      shell: source ~/.bashrc
+      args:
+        executable: /bin/bash
+
+    - name: "Pacote MVN"
+      shell: "cd spring-web-youtube && mvn package"
+      
+    - name: "Spring boot "
+      shell: "cd spring-web-youtube && nohup mvn spring-boot:run &"
+      register: command_output
+    - debug:
+        msg: "{{command_output}}"
+              
+    - name: Removing a file
+      file:
+        path: "/etc/nginx/nginx.conf"
+        state: absent
+      become: yes
+    
+    - name: Creating an empty file
+      file:
+        path: "/etc/nginx/nginx.conf"
+        state: touch
+        mode: 0755
+      become: yes
+
+    - name: "Adicionar no nginx"
+      lineinfile: dest=/etc/nginx/nginx.conf line="worker_processes 1;error_log nginx_error.log;events { worker_connections 1024; } http { server { listen 80; location / { proxy_pass http://127.0.0.1:8080;}}}" state=present
+      notify:
+        - "restart nginx"
+      become: yes  
+    
+    
+  
+    
+   

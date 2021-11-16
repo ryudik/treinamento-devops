@@ -1,0 +1,127 @@
+- hosts: all
+  handlers:
+    - name: "restart nginx"
+      service:
+        name: nginx
+        state: restarted
+      become: yes
+  tasks:
+    #### com estado
+    # - name: "Criando um arquivo a toa no servidor"
+    #   copy: 
+    #     content: "teste danilo" 
+    #     dest: "/home/ubuntu/mais_um.txt"
+    #     backup: yes
+    #     owner: ubuntu
+    #     group: ubuntu
+    #     mode: 777
+
+    #### sem estado
+    # - name: "Criando um arquivo a toa no servidor"
+    #   shell: "echo 'escrevendo algo no servidor' >> teste.txt"
+  
+    - name: "Roda: sudo apt update"
+      become: yes
+      apt:
+        upgrade: yes
+        update_cache: yes
+        cache_valid_time: 86400 #Um dia
+    
+    - name: "Instala pacotes em lote"
+      apt:
+        name: "{{ item }}"
+        state: latest
+      become: yes # roda com sudo
+      with_items:
+        - nginx
+        - php-curl
+        - unzip
+        
+    - name: "Fazendo downlaod do bootstrap"
+      get_url:
+        url: "https://github.com/startbootstrap/startbootstrap-stylish-portfolio/archive/gh-pages.zip"
+        dest: "/tmp/gh-pages.zip"
+      become: yes
+    
+    - name: "Fazendo descompactação dos arquivos do bootstrap"
+      unarchive:
+        src: "/tmp/gh-pages.zip"
+        dest: "/var/www"
+        remote_src: yes
+      become: yes
+
+  
+    - name: Removing a file
+      file:
+        path: "/etc/nginx/nginx.conf"
+        state: absent
+      become: yes
+    
+    - name: Creating an empty file
+      file:
+        path: "/etc/nginx/nginx.conf"
+        state: touch
+        mode: 0755
+      become: yes
+
+    - name: "Adicionar no nginx"
+      lineinfile: dest=/etc/nginx/nginx.conf line="worker_processes 1;error_log nginx_error.log;events { worker_connections 1024; } http { server { listen 80; location / { root /var/www/startbootstrap-stylish-portfolio-gh-pages;}}}" state=present
+      notify:
+        - "restart nginx"
+      become: yes  
+    # - name: "Configura o wp-config com as senhas"
+    #   replace:
+    #     path: '/var/www/wordpress/wp-config.php'
+    #     regexp: "{{ item.regex }}"
+    #     replace: "{{ item.value }}"
+    #   with_items:
+    #     - { regex: 'nome_do_banco_de_dados_aqui', value: 'banco_wordpress' }
+    #     - { regex: 'nome_de_usuario_aqui', value: 'root' }
+    #     - { regex: 'senha_aqui', value: 'root' }
+    #   become: yes
+
+    # #### Altera direto no apache
+    # - name: "altera apache"
+    #   replace:
+    #     path: '/etc/apache2/sites-available/000-default.conf'
+    #     regexp: "{{ item.regex }}"
+    #     replace: "{{ item.value }}"
+    #   with_items:
+    #     - { regex: '/var/www/html', value: '/var/www/wordpress' }
+    #   become: yes
+
+    # - name: "Trocando pasta do render do apache para o wordpress"
+    #   copy:
+    #     src: "apache/000-default.conf"
+    #     dest: "/etc/apache2/sites-available/000-default.conf"
+    #   become: yes
+    #   notify:
+    #     - "restart apache"
+
+    # - name: "Lavanta serviço do mysql"
+    #   become: yes
+    #   service:
+    #     name: mysql
+    #     state: started
+
+    # - name: "Criando senha root mysql"
+    #   become: yes
+    #   mysql_user:
+    #     name: root
+    #     host: localhost
+    #     password: root
+    #     priv: "*.*:ALL,GRANT"
+
+    # - name: "Cria o banco de dados MySQL"
+    #   mysql_db:
+    #     name: banco_wordpress
+    #     login_user: root
+    #     login_password: root
+    #     state: present
+
+    # - shell: cat /var/www/wordpress/wp-config.php
+    #   register: ps
+    # - debug:
+    #     msg: " '{{ ps.stdout_lines }}' "
+
+    
