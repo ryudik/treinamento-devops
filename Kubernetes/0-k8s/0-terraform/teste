@@ -1,0 +1,4 @@
+  "worker 0 - 18.228.238.176 - ssh -i ~/.ssh/acesso.pv ubuntu@ec2-18-228-238-176.sa-east-1.compute.amazonaws.com",
+  "worker 1 - 52.67.159.153 - ssh -i ~/.ssh/acesso.pv ubuntu@ec2-52-67-159-153.sa-east-1.compute.amazonaws.com",
+  "worker 2 - 54.94.252.177 - ssh -i ~/.ssh/acesso.pv ubuntu@ec2-54-94-252-177.sa-east-1.compute.amazonaws.com",
+  "master - 18.228.220.57 - ssh -i ~/.ssh/acesso.pv ubuntu@ec2-18-228-220-57.sa-east-1.compute.amazonaws.com",

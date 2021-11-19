@@ -28,7 +28,7 @@ resource "aws_instance" "maquina_master" {
 
 resource "aws_instance" "workers" {
   ami           = "ami-0e66f5495b4efdd0f"
-  instance_type = "t2.small"
+  instance_type = "t2.medium"
   subnet_id     = "subnet-0af90638faf332140"
   associate_public_ip_address = true
   root_block_device {
@@ -53,6 +53,17 @@ resource "aws_security_group" "acessos_master_single_master" {
       description      = "SSH from VPC"
       from_port        = 22
       to_port          = 22
+      protocol         = "tcp"
+      cidr_blocks      = ["0.0.0.0/0"]
+      ipv6_cidr_blocks = ["::/0"]
+      prefix_list_ids = null,
+      security_groups: null,
+      self: null
+    },
+    {
+      description      = "teste nodeport"
+      from_port        = 30000
+      to_port          = 30001
       protocol         = "tcp"
       cidr_blocks      = ["0.0.0.0/0"]
       ipv6_cidr_blocks = ["::/0"]
@@ -167,6 +178,6 @@ output "maquina_master" {
 output "aws_instance_e_ssh" {
   value = [
     for key, item in aws_instance.workers :
-      "worker ${key} - ${item.public_ip} - ssh -i ~/.ssh/acesso.pv ubuntu@${item.public_dns}"
+      "worker${key} - ${item.public_ip} - ssh -i ~/.ssh/acesso.pv ubuntu@${item.public_dns}"
   ]
 }
