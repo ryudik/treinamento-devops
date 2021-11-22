@@ -15,5 +15,5 @@ sleep 10 # 10 segundos
 
 cd ../ansible
 
-echo "Executando ansible ::::: [ ansible-playbook -i hosts provisionar.yml -u ubuntu --private-key /home/ubuntu/acesso.pv ]"
-ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i hosts provisionar.yml -u ubuntu --private-key /home/ubuntu/acesso.pv
+echo "Executando ansible ::::: [ ansible-playbook -i hosts provisionar.yml -u ubuntu --private-key ~/.ssh/acesso.pv ]"
+ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i hosts provisionar.yml -u ubuntu --private-key ~/.ssh/acesso.pv
