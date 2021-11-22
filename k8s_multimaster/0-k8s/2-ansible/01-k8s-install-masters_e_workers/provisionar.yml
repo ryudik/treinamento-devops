@@ -13,10 +13,10 @@
       become: yes
     
     - name: "Roda: sudo apt-get update"
-      become: yes
+      become: true
       apt:
-        upgrade: yes
         update_cache: yes
+        state: latest
         cache_valid_time: 86400 #Um dia
 
     - name: "Instala pacotes"

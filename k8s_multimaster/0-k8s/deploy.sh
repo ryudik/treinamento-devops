@@ -8,38 +8,39 @@
 # | grep -oP "(kubeadm join.*?certificate-key.*?)'" | sed 's/\\//g' | sed "s/'//g" | sed "s/'t//g" | sed "s/,//g"
 
 cd 0-terraform
-~/terraform/terraform init
-~/terraform/terraform apply -auto-approve
+terraform init
+terraform apply --auto-approve
 
 echo  "Aguardando a criação das maquinas ..."
 sleep 5
 
-ID_M1=$(~/terraform/terraform output | grep 'k8s-master 1 -' | awk '{print $4;exit}')
-ID_M1_DNS=$(~/terraform/terraform output | grep 'k8s-master 1 -' | awk '{print $9;exit}' | cut -b 8-)
+ID_M1=$(terraform output | grep "master 1" |  awk -F\  '{print $4}')
+ID_M1_DNS=$(terraform output | grep "master 1" | awk -F@ '{print $2}' | awk -F\" '{print $1}')
 
-ID_M2=$(~/terraform/terraform output | grep 'k8s-master 2 -' | awk '{print $4;exit}')
-ID_M2_DNS=$(~/terraform/terraform output | grep 'k8s-master 2 -' | awk '{print $9;exit}' | cut -b 8-)
+ID_M2=$(terraform output | grep "master 2" |  awk -F\  '{print $4}')
+ID_M2_DNS=$(terraform output | grep "master 2" | awk -F@ '{print $2}' | awk -F\" '{print $1}')
 
-ID_M3=$(~/terraform/terraform output | grep 'k8s-master 3 -' | awk '{print $4;exit}')
-ID_M3_DNS=$(~/terraform/terraform output | grep 'k8s-master 3 -' | awk '{print $9;exit}' | cut -b 8-)
-
-
-ID_HAPROXY=$(~/terraform/terraform output | grep 'k8s_proxy -' | awk '{print $3;exit}')
-ID_HAPROXY_DNS=$(~/terraform/terraform output | grep 'k8s_proxy -' | awk '{print $8;exit}' | cut -b 8-)
+ID_M3=$(terraform output | grep "master 3" |  awk -F\  '{print $4}')
+ID_M3_DNS=$(terraform output | grep "master 3" | awk -F@ '{print $2}' | awk -F\" '{print $1}')
 
 
-ID_W1=$(~/terraform/terraform output | grep 'k8s-workers 1 -' | awk '{print $4;exit}')
-ID_W1_DNS=$(~/terraform/terraform output | grep 'k8s-workers 1 -' | awk '{print $9;exit}' | cut -b 8-)
+ID_HAPROXY=$(terraform output | grep "proxy -" |  awk -F\  '{print $3}')
+ID_HAPROXY_DNS=$(terraform output | grep "proxy -" | awk -F@ '{print $2}' | awk -F\" '{print $1}')
 
-ID_W2=$(~/terraform/terraform output | grep 'k8s-workers 2 -' | awk '{print $4;exit}')
-ID_W2_DNS=$(~/terraform/terraform output | grep 'k8s-workers 2 -' | awk '{print $9;exit}' | cut -b 8-)
 
-ID_W3=$(~/terraform/terraform output | grep 'k8s-workers 3 -' | awk '{print $4;exit}')
-ID_W3_DNS=$(~/terraform/terraform output | grep 'k8s-workers 3 -' | awk '{print $9;exit}' | cut -b 8-)
+ID_W1=$(terraform output | grep "workers 1" |  awk -F\  '{print $4}')
+ID_W1_DNS=$(terraform output | grep "workers 1" | awk -F@ '{print $2}' | awk -F\" '{print $1}')
+
+ID_W2=$(terraform output | grep "workers 2" |  awk -F\  '{print $4}')
+ID_W2_DNS=$(terraform output | grep "workers 2" | awk -F@ '{print $2}' | awk -F\" '{print $1}')
+
+ID_W3=$(terraform output | grep "workers 3" |  awk -F\  '{print $4}')
+ID_W3_DNS=$(terraform output | grep "workers 3" | awk -F@ '{print $2}' | awk -F\" '{print $1}')
 
 echo "
 [ec2-k8s-proxy]
 $ID_HAPROXY_DNS
+$ID_HAPROXY
 
 [ec2-k8s-m1]
 $ID_M1_DNS
@@ -47,6 +48,7 @@ $ID_M1_DNS
 $ID_M2_DNS
 [ec2-k8s-m3]
 $ID_M3_DNS
+$ID_M3
 
 [ec2-k8s-w1]
 $ID_W1_DNS
@@ -124,7 +126,7 @@ ff02::3 ip6-allhosts
 
 cd ../2-ansible/01-k8s-install-masters_e_workers
 
-ANSIBLE_OUT=$(ansible-playbook -i hosts provisionar.yml -u ubuntu --private-key ~/Desktop/devops/treinamentoItau)
+ANSIBLE_OUT=$(ansible-playbook -i hosts provisionar.yml -u ubuntu --private-key ~/.ssh/acesso.pv)
 
 #### Mac ###
 K8S_JOIN_MASTER=$(echo $ANSIBLE_OUT | grep -oE "(kubeadm join.*?certificate-key.*?)'" | sed 's/\\//g' | sed "s/'t//g" | sed "s/'//g" | sed "s/,//g")

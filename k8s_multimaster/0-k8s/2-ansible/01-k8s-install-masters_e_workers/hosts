@@ -1,18 +1,20 @@
 
 [ec2-k8s-proxy]
-ec2-18-205-106-42.compute-1.amazonaws.com
+ip-192-168-3-52.sa-east-1.compute.internal
+192.168.3.52
 
 [ec2-k8s-m1]
-ec2-18-234-97-123.compute-1.amazonaws.com
+ip-192-168-3-5.sa-east-1.compute.internal
 [ec2-k8s-m2]
-ec2-35-174-241-70.compute-1.amazonaws.com
+ip-192-168-2-114.sa-east-1.compute.internal
 [ec2-k8s-m3]
-ec2-3-233-238-5.compute-1.amazonaws.com
+ip-192-168-1-15.sa-east-1.compute.internal
+192.168.1.15
 
 [ec2-k8s-w1]
-ec2-18-212-91-133.compute-1.amazonaws.com
+ip-192-168-3-156.sa-east-1.compute.internal
 [ec2-k8s-w2]
-ec2-34-204-50-31.compute-1.amazonaws.com
+ip-192-168-2-119.sa-east-1.compute.internal
 [ec2-k8s-w3]
-ec2-54-208-138-196.compute-1.amazonaws.com
+ip-192-168-1-80.sa-east-1.compute.internal
 

@@ -7,6 +7,7 @@ resource "aws_instance" "k8s_proxy" {
   ami           = "ami-0e66f5495b4efdd0f"
   instance_type = "t3.medium"
   subnet_id     = "${data.aws_subnet.test_subnet.0.id}"
+  associate_public_ip_address = true
   root_block_device {
     encrypted = true
     volume_size = 20
@@ -23,6 +24,7 @@ resource "aws_instance" "k8s_masters" {
   ami           = "ami-0e66f5495b4efdd0f"
   instance_type = "t3.medium"
   subnet_id     = "${element(data.aws_subnet.test_subnet.*.id, count.index)}"
+  associate_public_ip_address = true
   key_name = "Ronaldo_Keypair"
   root_block_device {
     encrypted = true
@@ -42,6 +44,7 @@ resource "aws_instance" "k8s_workers" {
   ami           = "ami-0e66f5495b4efdd0f"
   instance_type = "t3.medium"
   subnet_id     = "${element(data.aws_subnet.test_subnet.*.id, count.index)}"
+  associate_public_ip_address = true
   key_name = "Ronaldo_Keypair"
   root_block_device {
     encrypted = true

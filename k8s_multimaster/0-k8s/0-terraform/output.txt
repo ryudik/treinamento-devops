@@ -1,0 +1,13 @@
+k8s-masters = [
+  "k8s-master 1 - 192.168.3.101 - ssh -i ~/.ssh/acesso.pv ubuntu@ip-192-168-3-101.sa-east-1.compute.internal",
+  "k8s-master 2 - 192.168.2.227 - ssh -i ~/.ssh/acesso.pv ubuntu@ip-192-168-2-227.sa-east-1.compute.internal",
+  "k8s-master 3 - 192.168.1.195 - ssh -i ~/.ssh/acesso.pv ubuntu@ip-192-168-1-195.sa-east-1.compute.internal",
+]
+output-k8s_proxy = [
+  "k8s_proxy - 192.168.3.196 - ssh -i ~/.ssh/acesso.pv ubuntu@ip-192-168-3-196.sa-east-1.compute.internal",
+]
+output-k8s_workers = [
+  "k8s-workers 1 - 192.168.3.254 - ssh -i ~/.ssh/acesso.pv ubuntu@ip-192-168-3-254.sa-east-1.compute.internal",
+  "k8s-workers 2 - 192.168.2.218 - ssh -i ~/.ssh/acesso.pv ubuntu@ip-192-168-2-218.sa-east-1.compute.internal",
+  "k8s-workers 3 - 192.168.1.156 - ssh -i ~/.ssh/acesso.pv ubuntu@ip-192-168-1-156.sa-east-1.compute.internal",
+]
