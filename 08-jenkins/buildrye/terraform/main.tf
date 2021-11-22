@@ -14,7 +14,7 @@ resource "aws_instance" "dev_img_deploy_jenkins" {
   }
   key_name = "Ronaldo_Keypair" # Nome da Key gerada pelo ssk-keygem e upada na AWS
   tags = {
-    Name = "Ronaldo_Jenkins",
+    Name = "Ronaldo_AMI",
     Itau = true
   }
   vpc_security_group_ids = [aws_security_group.acesso_jenkins_dev_img.id]
