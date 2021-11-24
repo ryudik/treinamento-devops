@@ -1,0 +1,61 @@
+pipeline { 
+
+    environment { 
+
+        registry = "ryudik/lab" 
+
+        registryCredential = 'dockerlogin' 
+
+        dockerImage = '' 
+
+    }
+
+    agent any 
+
+    stages { 
+
+        stage('change dir') { 
+
+            steps { 
+
+                sh "cd spring-web-youtube" 
+
+            }
+
+        } 
+
+        stage('Building our image') { 
+
+            steps { 
+
+                script { 
+
+                    dockerImage = docker.build registry + ":3.3.3" 
+
+                }
+
+            } 
+
+        }
+
+        stage('Deploy our image') { 
+
+            steps { 
+
+                script { 
+
+                    docker.withRegistry( '', registryCredential ) { 
+
+                        dockerImage.push() 
+
+                    }
+
+                } 
+
+            }
+
+        } 
+
+    }
+
+}
