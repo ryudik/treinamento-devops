@@ -1,0 +1,94 @@
+- hosts: all
+
+  tasks:
+    - name: "Roda: sudo apt-get update"
+      become: yes
+      apt:
+        upgrade: yes
+        update_cache: yes
+        cache_valid_time: 86400 #Um dia
+
+    - name: "Instala pacotes mysql"
+      become: true
+      apt:
+        update_cache: yes
+        state: latest
+        name:
+        - mysql-server
+        - python3-mysqldb
+
+    - name: install packages required by docker
+      become: true
+      apt:
+        update_cache: yes
+        state: latest
+        name:
+        - apt-transport-https
+        - ca-certificates
+        - curl
+        - gpg-agent
+        - software-properties-common
+
+    - name: add docker GPG key
+      become: true
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: add docker apt repo
+      become: true
+      apt_repository:
+        repo: deb https://download.docker.com/linux/ubuntu bionic stable
+        state: present
+
+    - name: install docker
+      become: true
+      apt:
+        update_cache: yes
+        state: latest
+        name:
+        - docker-ce
+        - docker-ce-cli
+        - containerd.io
+
+    - name: "Restart docker"
+      shell: sudo systemctl restart docker
+      become: yes
+
+    - name: "Lavanta serviço do mysql"
+      become: yes
+      service:
+        name: mysql
+        state: started
+
+    - name: "Criando senha root mysql"
+      become: yes
+      mysql_user:
+        name: root
+        host: localhost
+        password: Senha&12_torne00
+        priv: "*.*:ALL,GRANT"
+  
+    - name: "Cria o banco de dados MySQL"
+      mysql_db:
+        name: treinamento_database
+        login_user: root
+        login_password: Senha&12_torne00
+        state: present
+
+    - name: "Adicionar no bashrc"
+      lineinfile: dest=~/.bashrc line="export USER='root'" state=present
+     
+    - name: "Adicionar no bashrc 2"
+      lineinfile: dest=~/.bashrc line="export PASSWORD='Senha&12_torne00'" state=present
+
+    - name: "Adicionar no bashrc 3"
+      lineinfile: dest=~/.bashrc line="export DATABASE_URL='mysql://127.0.0.1:3306/treinamento_database'" state=present
+
+    - name: "Adicionar no bashrc 4"
+      lineinfile: dest=~/.bashrc line="export JAVA_HOME='/usr/lib/jvm/java-11-openjdk-amd64'" state=present
+      
+    - name: "Aplicar o bashrc"
+      shell: source ~/.bashrc
+      args:
+        executable: /bin/bash

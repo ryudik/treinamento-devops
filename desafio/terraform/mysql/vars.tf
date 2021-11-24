@@ -18,4 +18,7 @@ variable "pvsubid" {
   default     =  "subnet-062c5582cd7a36933"
 }
 
-
+variable "private_subnets" {
+  type = "list"
+  default     =  ["192.168.15.0/24" , "192.168.16.0/24", "192.168.17.0/24"]
+}
