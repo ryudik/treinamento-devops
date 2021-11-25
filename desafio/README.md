@@ -13,7 +13,7 @@
   <a href="#funcionalidades">Funcionalidades</a>
 </p>
 
-## Ì†ΩÌ±®Ì†ºÌøª‚ÄçÌ†ΩÌ≤ª Sobre o projeto
+## Sobre o projeto
 
 **Objetivo:** Exercitar os conhecimentos adquiridos do treinamento
 eta:
@@ -25,14 +25,14 @@ eta:
 
 Para ver o **Reposit√≥rio do projeto**, clique aqui: [repo-desafio-final-devops](https://github.com/weslleyfs/Wes-Desafio-Final-Devops)</br>
 
-### Ì†ΩÌ≤ª Desenvolvedores
+###  Desenvolvedores
 - [Ricardo Bastos Natalino](https://github.com/)
 - [Ronaldo Yudi Endo](https://github.com/ryudik)
 - [Tiago R. Sartorato](https://github.com/)
 - [Vinicius Faraco Gimenes](https://github.com/)
 - [Weslley Ferreira Dos Santos](https://github.com/weslleyfs)
 
-## Ì†ΩÌ∫Ä Tecnologias
+## Tecnologias
 
 Plataformas e Tecnologias que utilizamos para desenvolver este projeto:
 
@@ -48,7 +48,7 @@ Plataformas e Tecnologias que utilizamos para desenvolver este projeto:
 - [Java](https://www.java.com/)
 
 
-## Ì†ΩÌ≤ª Descri√ß√£o do Projeto
+## Descri√ß√£o do Projeto
 
 - A seguir a descri√ß√£o resumida das Pipelines e solu√ß√µes adotadas em cada  parte do projeto.
 
@@ -102,7 +102,7 @@ Funcionalidades que o sistema oferece:
 - Mensagens de erro customizadas *user friendly*
 - Documenta√ß√£o dos endpoints
 
-## Ì†ΩÌ≥Ñ Licen√ßa
+## ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ Licen√ßa
 
 Este projeto est√° sob a licen√ßa de (PomaLabs).
 
