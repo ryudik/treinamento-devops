@@ -79,32 +79,8 @@ Plataformas e Tecnologias que utilizamos para desenvolver este projeto:
 
 ####  Criação da pipeline de de desenvolvimento para deploy de uma aplicação Java nos ambientes (dev, stage, prod)
 ```
-DB_USER=seu_usuario
-DB_PASSWORD=sua_senha
-DB_HOST=seu_host
-DB_PORT=sua_port
-DB_NAME=nome_do_banco
-JWT_SECRET=seu_segredo
+
 
 ```
 
-## ⚙️ Funcionalidades
-Funcionalidades que o sistema oferece:
-- Cadastro e Login de Usuários
-- Cadastro de Clientes e Especialistas
-- Cadastro de Atendimentos e de Históricos de Prontuários
-- Pesquisa
-	- Busca de atendimentos por Status, Paciente, Especialista, Data de agendamento ou de atendimento
-- Criação de Agendamentos
-- Criptografia de senhas
-- Sistema de autenticação de usuário
-- Validação de requisições
-- Mensagens de erro customizadas *user friendly*
-- Documentação dos endpoints
 
-## ������ Licença
-
-Este projeto está sob a licença de (PomaLabs).
-
-
-> Written with [StackEdit](https://stackedit.io/).
