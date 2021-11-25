@@ -1,6 +1,3 @@
-<h1 align="center">
-<img src="https://i.imgur.com/nwfkVsb.png" title="Clínica Pomarola" />
-</h1>
 
 <h3 align="center">
   Desafio Treinamento Devops
