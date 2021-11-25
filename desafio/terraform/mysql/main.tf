@@ -11,7 +11,7 @@ resource "aws_instance" "mysql_pv" {
   ami           = "ami-0e66f5495b4efdd0f"
   instance_type = "t3.small"
   subnet_id                   = element(local.subs, count.index)
-  count                       = 3
+  count                       = 1
   root_block_device {
     encrypted = true
     volume_size = 20
