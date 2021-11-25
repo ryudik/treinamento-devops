@@ -64,20 +64,20 @@ Plataformas e Tecnologias que utilizamos para desenvolver este projeto:
 
 ```
 
-#### Criação da pipeline para provisionar um cluster Kubernetes multi master**
+#### Criação da pipeline para provisionar um cluster Kubernetes multi master
 - [Repositório](https://github.com/weslleyfs/Wes-Desafio-Final-DEVOPS/tree/main/Build-k8s-mult-master)
 
 ```
 
 ```
 
-#### Criação da pipeline para provisionar mysqls externos em redes isoladas (dev, stage, prod)**
+#### Criação da pipeline para provisionar mysqls externos em redes isoladas (dev, stage, prod)
 
 ```
 
 ```
 
-####  Criação da pipeline de de desenvolvimento para deploy de uma aplicação Java nos ambientes (dev, stage, prod)**
+####  Criação da pipeline de de desenvolvimento para deploy de uma aplicação Java nos ambientes (dev, stage, prod)
 ```
 DB_USER=seu_usuario
 DB_PASSWORD=sua_senha
